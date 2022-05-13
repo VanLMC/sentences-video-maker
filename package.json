@@ -1,0 +1,14 @@
+{
+  "name": "sentences-video-maker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "cheerio": "^1.0.0-rc.10",
+    "readline-sync": "^1.4.10"
+  }
+}
