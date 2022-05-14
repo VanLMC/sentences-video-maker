@@ -6,24 +6,27 @@ const state = require('./state.js')
 
 async function textService() {
 
-    //Tratar para nao colocar no video quotes muito longas
     const content = state.load()
     content.quotes = await getQuotes(content)
     state.save(content)
     async function getQuotes(content){
-
         const parsedSearchTerm = content.searchTerm.replace(/\s/g, '_')
         const {data} = await axios.get(`${url}${parsedSearchTerm}`);
         const quotes = [];
         const $ = cheerio.load(data);
     
         $('#phrasesList .thought-card').each((i, element) => {
-            const quote = $(element).find('.frase').text().replace('\n', '');
-            if(quote.length > 1000) return
-            quotes.push(quote)
+            const text = $(element).find('.frase').text().replace('\n', '');
+            const autor = $(element).find('.autor>a').text();
+            if(text.length > 1000) return
+            quotes.push({text: text, author: autor})
         });
 
-        return quotes;
+        const sortedQuotes = quotes.sort(function(a, b){
+            return a.text.length - b.text.length;
+          });
+
+        return sortedQuotes;
     }
 
 
