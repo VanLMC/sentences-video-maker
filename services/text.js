@@ -7,8 +7,10 @@ const state = require('./state.js')
 async function textService() {
 
     const content = state.load()
+
     content.quotes = await getQuotes(content)
     state.save(content)
+    
     async function getQuotes(content){
         const parsedSearchTerm = content.searchTerm.replace(/\s/g, '_')
         const {data} = await axios.get(`${url}${parsedSearchTerm}`);
