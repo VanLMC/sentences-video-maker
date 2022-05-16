@@ -10,8 +10,8 @@ async function start(){
     await input()
     await text()
     await audio()
-    // await image()
-    // await video()
+    await image()
+    await video()
 }
 
 
