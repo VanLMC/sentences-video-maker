@@ -6,7 +6,7 @@ del "content/output/output.mp4"
 set i=0
 for %%g in (content/audios/*) do (
    echo file !i!.mp4 >> content/videos/files.txt
-   ffmpeg -y -loop 1 -i content/images/1.jpg -i content/audios/!i!.mp3 -c:v libx264 -c:a aac -b:a 192k -vf format=yuv420p -shortest content/videos/!i!.mp4
+   ffmpeg -y -loop 1 -i content/images/!i!-sentence.png -i content/audios/!i!.mp3 -c:v libx264 -c:a aac -b:a 192k -vf format=yuv420p -shortest content/videos/!i!.mp4
    set /A i+=1
    echo !i!
 
