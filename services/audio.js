@@ -16,7 +16,7 @@ async function audioService() {
 
           content.quotes.forEach((quote, i) => {
                     
-                var filepath = path.join(__dirname, 'content', 'audio', `${i}.mp3`);
+                var filepath = path.join(__dirname, 'content', 'audios', `${i}.mp3`);
 
                 if (fs.existsSync(filepath)) {
                     fs.unlink(filepath, err => {
