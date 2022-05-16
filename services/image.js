@@ -27,7 +27,8 @@ async function imagesService() {
             .out('-background', 'black')
             .out('-fill', 'white')
             .out('-kerning', '-1')
-            .fontSize('100')
+            .font('Arial', 100) 
+            .in('-weight', 'Bold')
             .out(`caption:${parsedSentence}`)
             .write(outputFile, (error) => {
               if (error) {
