@@ -13,7 +13,6 @@
     "node-gtts": "^2.0.2",
     "readline-sync": "^1.4.10",
     "shelljs": "^0.8.5",
-    "simple-gtts": "^1.0.5",
     "videoshow": "^0.1.12"
   }
 }
