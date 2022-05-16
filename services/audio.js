@@ -1,18 +1,18 @@
 
-var path = require('path');
-const state = require('./state.js')
-const fs = require('fs')
-var gtts = require('node-gtts')('pt-br');
+import path from 'path'
+import state from './state.js'
+import fs from 'fs'
+import gtts from 'node-gtts'
+
+const __dirname = path.resolve();
 
 async function audioService() {
+    const content = state.load()
 
-        const content = state.load()
-        content.quotes = await generateAudio(content)
-        // state.save(content)
+
+    await generateAudio(content)
 
     async function generateAudio(content){
-
-
 
           content.quotes.forEach((quote, i) => {
                     
@@ -24,17 +24,14 @@ async function audioService() {
                     });
                 }
 
-                 gtts.save(filepath, quote.text, function() {
-                  console.log(`saving audio: ${i}.mp3`);
+                 gtts('pt-br').save(filepath, quote.text, function() {
+                   console.log(`saving audio: ${i}.mp3`);
                 })
             })
-
-
+    
     }
 }
 
-// async function deleteIfExistent() {
 
-// }
 
-module.exports = audioService;
+export default audioService;

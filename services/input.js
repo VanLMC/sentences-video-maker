@@ -1,5 +1,6 @@
-const readLine = require('readline-sync')
-const state = require('./state.js')
+import readLine from  'readline-sync'
+import state from './state.js'
+
 async function InputService() {
     const content = {}
     content.searchTerm = askAndReturnSearchTerm()
@@ -10,4 +11,4 @@ async function InputService() {
 }
 
 
-module.exports = InputService;
+export default InputService

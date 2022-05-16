@@ -1,14 +1,16 @@
 
-const axios = require('axios')
-const cheerio = require('cheerio')
+import axios from 'axios'
+import cheerio from 'cheerio'
 const url = 'https://www.pensador.com/';
-const state = require('./state.js')
+import state from './state.js'
 
 async function textService() {
 
     const content = state.load()
+
     content.quotes = await getQuotes(content)
     state.save(content)
+    
     async function getQuotes(content){
         const parsedSearchTerm = content.searchTerm.replace(/\s/g, '_')
         const {data} = await axios.get(`${url}${parsedSearchTerm}`);
@@ -36,4 +38,4 @@ async function textService() {
 
 
 
-module.exports = textService;
+export default textService;
