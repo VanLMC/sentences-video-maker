@@ -12,15 +12,15 @@ async function imagesService() {
 
 
         for (let quoteIndex = 0; quoteIndex < content.quotes.length; quoteIndex++) {
-            await createSentenceImage(quoteIndex, content.quotes[quoteIndex].text)
+            await createSentenceImage(quoteIndex, content.quotes[quoteIndex])
           }
     } 
 
-    async function createSentenceImage(quoteIndex, sentenceText) {
+    async function createSentenceImage(quoteIndex, quote) {
         return new Promise((resolve, reject) => {
           const outputFile = path.join(__dirname, 'content', 'images', `${quoteIndex}-sentence.png`);
     
-          const parsedSentence = `"${sentenceText}"`
+          const parsedSentence = `"${quote.text}" - ${quote.author ? quote.author: ''}`
           im()
             .out('-size','1920x1080')
             .out('-gravity', 'center')
