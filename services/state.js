@@ -1,4 +1,4 @@
-const fs = require('fs')
+import fs from 'fs'
 
 const contentFilePath = './content.json'
 const scriptFilePath = './content/after-effects-script.js'
@@ -22,7 +22,7 @@ function load() {
 
 
 
-module.exports = {
+export default  {
     save,
     load,
     saveScript,

@@ -1,7 +1,9 @@
 
-const shell = require('shelljs')
+import shell from 'shelljs'
 
 async function videoService() {
+
+    console.log('start video service')
 
     createSlideShow();
 
@@ -10,4 +12,4 @@ async function videoService() {
     }
 }
 
- module.exports = videoService;
+export default videoService;

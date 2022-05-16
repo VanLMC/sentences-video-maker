@@ -1,8 +1,8 @@
 
-const axios = require('axios')
-const cheerio = require('cheerio')
+import axios from 'axios'
+import cheerio from 'cheerio'
 const url = 'https://www.pensador.com/';
-const state = require('./state.js')
+import state from './state.js'
 
 async function textService() {
 
@@ -38,4 +38,4 @@ async function textService() {
 
 
 
-module.exports = textService;
+export default textService;
