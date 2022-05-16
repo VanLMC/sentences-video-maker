@@ -5,10 +5,13 @@ async function videoService() {
 
     console.log('start video service')
 
-    createSlideShow();
-
+    await createSlideShow();
+    await addOverlay();
     async function createSlideShow() {
-        shell.exec('renderVideos.bat')
+        shell.exec('createSlideShow.bat')
+    }
+    async function addOverlay() {
+        shell.exec('addOverlay.bat')
     }
 }
 
