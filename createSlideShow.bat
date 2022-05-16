@@ -12,7 +12,7 @@ for %%g in (content/audios/*) do (
 
 )
 
-ffmpeg -y -f concat -safe 0 -i content/videos/files.txt -c -threads 2 copy content/output/slideShow.mp4
+ffmpeg -y -f concat -safe 0 -i content/videos/files.txt -c copy content/output/slideShow.mp4
 
 
 
