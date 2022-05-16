@@ -22,13 +22,13 @@ async function imagesService() {
     
           const parsedSentence = `"${quote.text}" - ${quote.author ? quote.author: ''}`
           im()
-            .out('-size','1920x1080')
+            .out('-size','1280x500')
             .out('-gravity', 'center')
             .out('-background', 'black')
             .out('-fill', 'white')
             .out('-kerning', '-1')
-            .font('Arial', 100) 
-            .in('-weight', 'Bold')
+            .font('Arial', 50) 
+            .in('-weight', '900')
             .out(`caption:${parsedSentence}`)
             .write(outputFile, (error) => {
               if (error) {
