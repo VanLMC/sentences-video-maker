@@ -21,7 +21,7 @@ async function imagesService() {
         return new Promise((resolve, reject) => {
           const outputFile = path.join(__dirname, 'content', 'images', `${quoteIndex}-sentence.png`)
     
-          const text = quoteIndex === 0 || quoteIndex === quotesLength ? quote.text : `"${quote.text}"`
+          const text = quoteIndex === 0 || quoteIndex + 1 === quotesLength ? quote.text : `"${quote.text}"`
           const author = quote.author ? ' - ' + quote.author: ''
 
           const parsedSentence = `${text}${author}`
