@@ -8,19 +8,22 @@ async function textService() {
 
     const content = state.load()
 
-    await getQuotes(content)
-    await addIntroAndOutro(content)
+     await getQuotes(content)
+     await getQuotes(content, 2)
+     await addIntroAndOutro(content)
     
-    async function getQuotes(content){
-        const parsedSearchTerm = content.searchTerm.replace(/\s/g, '_')
-        const {data} = await axios.get(`${url}${parsedSearchTerm}`);
-        const quotes = [];
+    async function getQuotes(content, page = ''){
+        const parsedSearchTerm = content.searchTerm.toLowerCase().replace(/\s/g, '_')
+        const {data} = await axios.get(`${url}${parsedSearchTerm}/${page}/`);
+
+        const quotes = page !== '' ? [...content.quotes] : [];
         const $ = cheerio.load(data);
 
 
         $('#phrasesList .thought-card').each((i, element) => {
             const text = $(element).find('.frase').text().replace('\n', '');
             const autor = $(element).find('.autor>a').text();
+
             if(text.length > 1000) return
             quotes.push({text: text, author: autor})
         });
@@ -30,9 +33,12 @@ async function textService() {
             return a.text.length - b.text.length;
           });
 
-        content.quotes = sortedQuotes
+
+        content.quotes =  sortedQuotes
+
         state.save(content)
     }
+
 
     async function addIntroAndOutro(content){
         const intro = `${content.quotes.length} frases de ${content.searchTerm}` 
@@ -41,7 +47,6 @@ async function textService() {
         content.quotes.push({text: outro, author: ''})
         state.save(content)
     }
-
 
     
 }
