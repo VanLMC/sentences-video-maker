@@ -29,7 +29,7 @@ async function imagesService() {
 
           const parsedSentence = `${text}\n${author}`
           im()
-            .out('-size','800x400')
+            .out('-size','800x720')
             .out('-gravity', 'center')
             .out('-background', 'black')
             .out('-fill', 'white')
