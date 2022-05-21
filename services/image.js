@@ -103,8 +103,8 @@ async function imagesService() {
       const width = 1280;
       const height = 720;
       const imagePosition = {
-        w: 540,
-        h: 720,
+        w: 440,
+        h: 620,
         x: 0,
         y: 5,
       };
