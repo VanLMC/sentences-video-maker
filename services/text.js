@@ -42,7 +42,7 @@ async function textService() {
 
     async function addIntroAndOutro(content){
         const intro = `${content.quotes.length} frases de ${content.searchTerm}` 
-        const outro = `Se você gostou do vídeo, deixe um joinha. Inscreva-se e ative o sininho.` 
+        const outro = `Comente sua frase favorita! Se você gostou do vídeo, deixe um joinha. Inscreva-se e ative o sininho.` 
         content.quotes.unshift({text: intro, author: ''})
         content.quotes.push({text: outro, author: ''})
         state.save(content)
