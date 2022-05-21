@@ -10,6 +10,7 @@ const __dirname = path.resolve();
 async function imagesService() {
     const content = state.load()
     const quotesLength = content.quotes.length;
+    const randomNumber = Math.round(Math.random() * (3 - 1) + 1);
     await createAllSentenceImages(content)
     await createThumbNail(content);
     await createVideoBackground();
@@ -51,12 +52,12 @@ async function imagesService() {
     async function createThumbNail(content) {
       return new Promise((resolve, reject) => {
 
-        const randomNumber = Math.round(Math.random() * (3 - 1) + 1);
+
         const image = path.join(__dirname, 'overlay', `old-man-${randomNumber}.jpg`)
         const outputFile = path.join(__dirname, 'content', 'output', 'thumbnail.png')
 
-        const longText = content.quotes[5].text
-        const text  = longText.slice(0, 30) + '...'
+        const longText = content.quotes[10].text
+        const text  = longText.slice(0, 20) + '...'
 
         const width = 1280;
         const height = 720;
@@ -77,7 +78,7 @@ async function imagesService() {
         context.textAlign = "center";
         context.fillStyle = "#fff";
 
-        context.font = "35pt 'PT Sans'";
+        context.font = "50pt 'PT Sans'";
         context.fillText(text, 800, 300);
       
         canvas.loadImage(image).then((image) => {
@@ -96,7 +97,6 @@ async function imagesService() {
   async function createVideoBackground(content) {
     return new Promise((resolve, reject) => {
 
-      const randomNumber = Math.round(Math.random() * (3 - 1) + 1);
       const image = path.join(__dirname, 'overlay', `old-man-${randomNumber}.jpg`)
       const outputFile = path.join(__dirname, 'overlay', 'background-image.png')
 
