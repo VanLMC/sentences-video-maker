@@ -2,17 +2,16 @@ import gm from "gm";
 import path from "path";
 import state from "./state.js";
 import fs from "fs";
+import axios from "axios";
 import canvas from "canvas";
 
 const im = gm.subClass({ imageMagick: true });
 const __dirname = path.resolve();
 async function imagesService() {
   const content = state.load();
-  const quotesLength = content.quotes.length;
-  const randomNumber = Math.round(Math.random() * (3 - 1) + 1);
-  await createAllSentenceImages(content);
-  await createThumbNail(content);
-  await createVideoBackground();
+  await downloadNewsImages(content);
+  await createShortVideoNewsSentences(content);
+
 
   async function createAllSentenceImages(content) {
     for (let quoteIndex = 0; quoteIndex < content.quotes.length; quoteIndex++) {
@@ -91,8 +90,6 @@ async function imagesService() {
       context.font = "Arial";
       context.textAlign = "center";
       context.fillStyle = "#fff";
-
-      context.font = "50pt 'PT Sans'";
       context.fillText(text, 800, 300);
 
       canvas.loadImage(image).then((image) => {
@@ -145,6 +142,87 @@ async function imagesService() {
 
       resolve();
     });
+  }
+
+
+  async function createShortVideoNewsImages(content){
+    for (let newsIndex = 0; newsIndex < content.news.length; newsIndex++) {
+      await createSentenceImage(newsIndex, content.news[newsIndex]);
+    }
+  }
+
+  async function createShortVideoNewsSentences(newsIndex, news) {
+    if(!news) return;
+    return new Promise((resolve, reject) => {
+      const outputFile = path.join(
+        __dirname,
+        "content",
+        "images",
+        `${newsIndex}-sentence.png`
+      );
+
+      im()
+        .out("-size", "1080x1920")
+        .out("-gravity", "center")
+        .out("-background", "black")
+        .out("-fill", "white")
+        .out("-kerning", "-1")
+        .font("Arial", 30)
+        .in("-weight", "900")
+        .out(`caption:${news.title}`)
+        .write(outputFile, (error) => {
+          if (error) {
+            return reject(error);
+          }
+
+          console.log(`Sentence created: ${outputFile}`);
+          resolve();
+        });
+    });
+  }
+
+  async function downloadNewsImages(content){
+    for (let newsIndex = 0; newsIndex < content.news.length; newsIndex++) {
+      const outputLocationPath = path.join(
+        __dirname,
+        "content",
+        "images",
+        `${newsIndex}-sentence.png`
+      );
+      const imageUrl = content.news[newsIndex].urlToImage;
+      if(!imageUrl) return;
+      await downloadImage(imageUrl, outputLocationPath);
+    }
+
+  }
+
+  async function downloadImage(fileUrl, outputLocationPath){
+      const writer = fs.createWriteStream(outputLocationPath);
+    
+      return axios({
+        method: 'get',
+        url: fileUrl,
+        responseType: 'stream',
+      }).then(response => {
+    
+        return new Promise((resolve, reject) => {
+          response.data.pipe(writer);
+          let error = null;
+          writer.on('error', err => {
+            error = err;
+            writer.close();
+            reject(err);
+          });
+          writer.on('close', () => {
+            if (!error) {
+              resolve(true);
+            }
+          });
+        });
+      })
+      .catch((err) => {
+        console.log(err)
+      });
   }
 }
 

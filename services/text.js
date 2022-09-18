@@ -5,10 +5,7 @@ import state from "./state.js";
 
 async function textService() {
   const content = state.load();
-
-  await getQuotes(content);
-  await getQuotes(content, 2);
-  await addIntroAndOutro(content);
+  await getNews(content)
 
   async function getQuotes(content, page = "") {
     const parsedSearchTerm = content.searchTerm
@@ -42,6 +39,13 @@ async function textService() {
     content.quotes.unshift({ text: intro, author: "" });
     content.quotes.push({ text: outro, author: "" });
     state.save(content);
+  }
+
+  async function getNews(content){
+    const {data} = await axios.get('https://newsapi.org/v2/top-headlines?country=br&apiKey=b82e9f34d078425695c2a124efa1ac8e');
+    content.news = data.articles;
+    state.save(content);
+
   }
 }
 

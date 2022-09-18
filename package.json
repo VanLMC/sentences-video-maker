@@ -12,6 +12,7 @@
     "canvas": "^2.9.1",
     "cheerio": "^1.0.0-rc.10",
     "gm": "^1.23.1",
+    "install": "^0.13.0",
     "node-gtts": "^2.0.2",
     "readline-sync": "^1.4.10",
     "shelljs": "^0.8.5"
