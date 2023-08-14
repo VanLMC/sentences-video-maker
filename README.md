@@ -1,8 +1,4 @@
 # sentences-video-maker
 
 
--Requirementes 
-  -Node
-  -Ffmpeg
-  -Image Magic
-  -Run on windows (Because rendering is done with a bat file)
+You can see me explain this project in my youtube video [here](https://www.youtube.com/watch?v=aUVC9SBFmjM)
